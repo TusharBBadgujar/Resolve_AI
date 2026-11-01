@@ -1,0 +1,5 @@
+node_modules/
+.env
+npm-debug.log*
+desktop.ini
+Homingo-Hack-Days-2026.pdf

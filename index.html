@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ResolvAI - E-Commerce Support Agent Demo</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="Navbar/section.css">
+  <link rel="stylesheet" href="ReAct_Cycle/section.css">
+  <link rel="stylesheet" href="Customer_Support/section.css">
+  <link rel="stylesheet" href="Reasoning_Engine/section.css">
+  <link rel="stylesheet" href="Demo_Data_%26_Guardrails/section.css">
+  <link rel="stylesheet" href="About_%26_Contact/section.css">
+  <link rel="stylesheet" href="Footer/section.css">
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col selection:bg-cyan-500 selection:text-white antialiased">
+
+  <!-- Top Navigation Bar -->
+  <div id="mount-navbar"></div>
+
+  <!-- ReAct Agent 5-Phase Workflow Stepper Bar -->
+  <div id="mount-react-cycle"></div>
+
+  <!-- Main 3-Column Working Grid -->
+  <main class="flex-grow p-3 lg:p-5 max-w-[1600px] w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-4">
+
+    <div id="mount-customer-support" class="section-mount"></div>
+
+    <div id="mount-reasoning-engine" class="section-mount"></div>
+
+    <div id="mount-demo-console" class="section-mount"></div>
+  </main>
+
+  <!-- Project Info & Architecture Rubric Modal -->
+  <div id="mount-about-project"></div>
+
+  <div id="mount-footer"></div>
+
+  <p id="section-load-error" class="hidden m-4 rounded-xl border border-rose-700 bg-rose-950 p-4 text-sm text-rose-200" role="alert"></p>
+
+  <!-- Each section registers its markup before the app starts. -->
+  <script defer src="Navbar/section.js"></script>
+  <script defer src="ReAct_Cycle/section.js"></script>
+  <script defer src="Customer_Support/section.js"></script>
+  <script defer src="Reasoning_Engine/section.js"></script>
+  <script defer src="Demo_Data_%26_Guardrails/section.js"></script>
+  <script defer src="About_%26_Contact/section.js"></script>
+  <script defer src="Footer/section.js"></script>
+  <script defer src="js/sections-bootstrap.js"></script>
+  <script defer src="js/app.js"></script>
+</body>
+</html>
