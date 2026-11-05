@@ -60,6 +60,8 @@ The browser detects an intent and an order ID using English and Hindi keyword ru
 
 The running application does not use an AI model or call an AI API. Intent detection and action selection use deterministic English and Hindi keyword rules in the browser. The workflow is designed to demonstrate the stages of a ReAct-style agent, not to claim that an LLM is reasoning behind the scenes.
 
+GitHub Copilot and Gemini were used as development-assistance tools; neither is integrated into the running application.
+
 The application libraries are Node.js, Express, Mongoose, and dotenv on the server, plus vanilla JavaScript and Tailwind CSS for the browser UI. Tailwind CSS and Google Fonts are loaded from external CDNs.
 
 ## Project structure
