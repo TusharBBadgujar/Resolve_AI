@@ -9,6 +9,7 @@ The workflow uses rule-based intent and order-ID detection in browser JavaScript
 - [Features](#features)
 - [How it works](#how-it-works)
 - [Technology](#technology)
+- [AI usage](#ai-usage)
 - [Project structure](#project-structure)
 - [Requirements](#requirements)
 - [Setup and run](#setup-and-run)
@@ -16,6 +17,7 @@ The workflow uses rule-based intent and order-ID detection in browser JavaScript
 - [API](#api)
 - [Configuration](#configuration)
 - [Limitations](#limitations)
+- [Possible next steps](#possible-next-steps)
 - [Hackathon demo](#hackathon-demo)
 
 ## Features
@@ -53,6 +55,12 @@ The browser detects an intent and an order ID using English and Hindi keyword ru
 | Backend | Node.js, Express |
 | Persistence | MongoDB through Mongoose |
 | Fonts | Google Fonts (Inter and JetBrains Mono) |
+
+## AI usage
+
+The running application does not use an AI model or call an AI API. Intent detection and action selection use deterministic English and Hindi keyword rules in the browser. The workflow is designed to demonstrate the stages of a ReAct-style agent, not to claim that an LLM is reasoning behind the scenes.
+
+The application libraries are Node.js, Express, Mongoose, and dotenv on the server, plus vanilla JavaScript and Tailwind CSS for the browser UI. Tailwind CSS and Google Fonts are loaded from external CDNs.
 
 ## Project structure
 
@@ -136,6 +144,15 @@ The database name is set to `Resolve_AI` in the server. To use a different Mongo
 - Orders and transactions are sample data; the demo is not connected to a production order system.
 - Refunds, courier tracking, and escalation are simulated. No real payment, courier, or human-support service is contacted.
 - Tailwind CSS and the selected fonts are loaded from external CDNs.
+
+## Possible next steps
+
+These are proposed improvements, not features currently implemented:
+
+- Add automated tests for the intent rules, safety guardrails, and API routes.
+- Explore an optional LLM-backed intent/response layer while retaining deterministic policy checks before any action.
+- Connect to sandbox payment and courier APIs before considering any production integrations.
+- Add authentication and role-based access if the demo is expanded beyond local sample data.
 
 ## Hackathon demo
 
