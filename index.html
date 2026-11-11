@@ -26,13 +26,26 @@
   <div id="mount-react-cycle"></div>
 
   <!-- Main 3-Column Working Grid -->
-  <main class="flex-grow p-3 lg:p-5 max-w-[1600px] w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-4">
+  <main class="flex-grow p-3 lg:p-5 max-w-[1600px] w-full mx-auto flex flex-col gap-4">
+    <section id="demo-intro" aria-labelledby="demo-intro-title" class="demo-intro rounded-2xl border border-cyan-900/60 bg-slate-900 px-4 py-5 sm:px-6 lg:flex lg:items-center lg:justify-between lg:gap-8">
+      <div class="max-w-2xl">
+        <p id="demo-intro-eyebrow" class="mb-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-cyan-300">A guided customer-support demo</p>
+        <h1 id="demo-intro-title" class="text-xl font-bold tracking-tight text-white sm:text-2xl">See how ResolvAI handles an order request</h1>
+        <p id="demo-intro-copy" class="mt-2 max-w-2xl text-sm leading-relaxed text-slate-300">Choose a sample request or ask about an order. Follow each check and see how the demo explains its result.</p>
+        <p id="demo-intro-note" class="mt-3 inline-flex rounded-full border border-slate-700 bg-slate-950/60 px-3 py-1 text-[11px] text-slate-400">Sample data only · No live payment, courier, or support actions</p>
+      </div>
+      <ol class="demo-intro-steps mt-5 grid gap-2 text-xs text-slate-300 sm:grid-cols-3 lg:mt-0 lg:min-w-[460px]">
+        <li><span>1</span><strong id="demo-intro-step-1">Choose a sample</strong></li>
+        <li><span>2</span><strong id="demo-intro-step-2">Review the safety check</strong></li>
+        <li><span>3</span><strong id="demo-intro-step-3">Read the result</strong></li>
+      </ol>
+    </section>
 
-    <div id="mount-customer-support" class="section-mount"></div>
-
-    <div id="mount-reasoning-engine" class="section-mount"></div>
-
-    <div id="mount-demo-console" class="section-mount"></div>
+    <div class="grid grid-cols-1 gap-4 lg:grid-cols-12">
+      <div id="mount-customer-support" class="section-mount"></div>
+      <div id="mount-reasoning-engine" class="section-mount"></div>
+      <div id="mount-demo-console" class="section-mount"></div>
+    </div>
   </main>
 
   <!-- Project Info & Architecture Rubric Modal -->

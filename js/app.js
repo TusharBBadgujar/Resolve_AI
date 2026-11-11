@@ -98,7 +98,7 @@
 
     function updateDatabaseBadge(connected) {
       const badge = document.getElementById('badge-stack-tag');
-      badge.textContent = connected ? 'MongoDB • Resolve_AI' : 'MongoDB • Disconnected';
+      badge.innerHTML = `<span class="w-1.5 h-1.5 rounded-full ${connected ? 'bg-emerald-400' : 'bg-rose-400'}"></span> ${connected ? 'MongoDB • Resolve_AI' : 'MongoDB • Disconnected'}`;
       badge.classList.toggle('bg-emerald-500/10', connected);
       badge.classList.toggle('text-emerald-400', connected);
       badge.classList.toggle('border-emerald-500/30', connected);
@@ -131,39 +131,46 @@
     // Comprehensive Bilingual Localization Dictionary
     const i18n = {
       en: {
-        agentTag: "ReAct Autonomous Agent",
+        agentTag: "Order support demo",
         stackTag: "MongoDB • Resolve_AI",
-        headerSubtitle: "Homingo Hack Days 2026 • Track: Agents (Planning, Tools & Safety)",
-        modeAuto: "Auto Run",
-        modeStep: "Step-by-Step",
+        headerSubtitle: "A guided demo for safer e-commerce order support",
+        introEyebrow: "A guided customer-support demo",
+        introTitle: "See how ResolvAI handles an order request",
+        introCopy: "Choose a sample request or ask about an order. Follow each check and see how the demo explains its result.",
+        introStep1: "Choose a sample",
+        introStep2: "Review the safety check",
+        introStep3: "Read the result",
+        introNote: "Sample data only · No live payment, courier, or support actions",
+        modeAuto: "Run automatically",
+        modeStep: "Step through",
         resetBtn: "Reset Data",
-        modalBtn: "Architecture & Rubric",
-        phase1: "1. Perception (NLU)",
-        phase2: "2. Tool Planning",
-        phase3: "3. Safety Guardrail",
-        phase4: "4. Tool Execution",
-        phase5: "5. Synthesis",
-        cycleTitle: "ReAct Cycle:",
-        navCycle: "ReAct Cycle",
-        navSupport: "Customer Support",
-        navEngine: "Reasoning Engine",
-        navData: "Demo Data & Guardrails",
+        modalBtn: "Project info",
+        phase1: "1. Understand",
+        phase2: "2. Plan action",
+        phase3: "3. Check safety",
+        phase4: "4. Simulate action",
+        phase5: "5. Explain result",
+        cycleTitle: "How it works:",
+        navCycle: "How it works",
+        navSupport: "Try a request",
+        navEngine: "Activity",
+        navData: "Sample data & safety",
         navAbout: "About & Contact",
-        col1Title: "Customer Support Channel",
-        col1Badge: "Vanilla JavaScript Chat",
-        scenariosHeading: "Quick Scenario Test Harness:",
-        scenariosHint: "Click any card to trigger",
-        chatPlaceholder: "Ask about order status, refund, or address update...",
+        col1Title: "Try a sample request",
+        col1Badge: "English & Hindi",
+        scenariosHeading: "Choose an example:",
+        scenariosHint: "Select one to get started",
+        chatPlaceholder: "Ask about a sample order, e.g. ORD-8492...",
         sendBtn: "Send",
-        col2Title: "ReAct Reasoning Engine",
-        col2Subtitle: "Thought • Action Plan • Observation • Verification",
+        col2Title: "How the demo works",
+        col2Subtitle: "Follow each check and action as it happens.",
         stepCounterReady: "Ready",
         stepCounterCompleted: "Completed",
-        stepModeLabel: "Step-by-Step Debugger Active",
+        stepModeLabel: "Step-by-step mode is on",
         nextStepBtn: "Next Step",
         runAllBtn: "Run All",
-        traceEmptyTitle: "Awaiting Trigger Query",
-        traceEmptyDesc: "Select any scenario on the left or type an order question to watch ResolvAI reason, verify safety rules, and invoke tools.",
+        traceEmptyTitle: "Ready when you are",
+        traceEmptyDesc: "Choose a sample on the left or enter an order ID to follow each step and see the safety result.",
         tabDb: "Demo Data",
         tabArch: "Architecture",
         tabEval: "Guardrails",
@@ -203,39 +210,46 @@
         footerTop: "Back to top ↑"
       },
       hi: {
-        agentTag: "रीएक्ट स्वायत्त एजेंट",
+        agentTag: "ऑर्डर सहायता डेमो",
         stackTag: "MongoDB • Resolve_AI",
-        headerSubtitle: "होमिंगो हैक डेज़ 2026 • ट्रैक: ऑटोनॉमस एजेंट्स (प्लानिंग, टूल्स और सेफ्टी)",
-        modeAuto: "ऑटो रन",
-        modeStep: "स्टेप-बाय-स्टेप",
+        headerSubtitle: "ई-कॉमर्स ऑर्डर सहायता का एक सुरक्षित और सरल डेमो",
+        introEyebrow: "ग्राहक सहायता का निर्देशित डेमो",
+        introTitle: "देखें ResolvAI ऑर्डर अनुरोध कैसे संभालता है",
+        introCopy: "कोई नमूना अनुरोध चुनें या ऑर्डर के बारे में पूछें। हर जांच और उसके परिणाम को देखें।",
+        introStep1: "नमूना चुनें",
+        introStep2: "सुरक्षा जांच देखें",
+        introStep3: "परिणाम पढ़ें",
+        introNote: "केवल नमूना डेटा · कोई लाइव भुगतान, कूरियर या सहायता कार्रवाई नहीं",
+        modeAuto: "अपने आप चलाएं",
+        modeStep: "चरण देखें",
         resetBtn: "डेटा रीसेट",
-        modalBtn: "आर्किटेक्चर व रूब्रिक",
-        phase1: "1. परसेप्शन (NLU)",
-        phase2: "2. टूल प्लानिंग",
-        phase3: "3. सुरक्षा गार्डरेल",
-        phase4: "4. टूल निष्पादन",
-        phase5: "5. समाधान",
-        cycleTitle: "रीएक्ट चक्र:",
-        navCycle: "रीएक्ट चक्र",
-        navSupport: "ग्राहक सहायता",
-        navEngine: "रीजनिंग इंजन",
-        navData: "डेमो डेटा और सुरक्षा",
+        modalBtn: "परियोजना जानकारी",
+        phase1: "1. अनुरोध समझें",
+        phase2: "2. कार्रवाई तय करें",
+        phase3: "3. सुरक्षा जांचें",
+        phase4: "4. कार्रवाई का सिमुलेशन",
+        phase5: "5. परिणाम समझाएं",
+        cycleTitle: "काम करने का तरीका:",
+        navCycle: "कैसे काम करता है",
+        navSupport: "अनुरोध आज़माएं",
+        navEngine: "गतिविधि",
+        navData: "नमूना डेटा और सुरक्षा",
         navAbout: "परियोजना और संपर्क",
-        col1Title: "ग्राहक सहायता चैट चैनल",
-        col1Badge: "वेनिला JavaScript चैट",
-        scenariosHeading: "त्वरित परिदृश्य टेस्ट हार्नेस:",
-        scenariosHint: "चलाने के लिए कार्ड पर क्लिक करें",
-        chatPlaceholder: "ऑर्डर स्थिति, रिफंड या पता बदलने के बारे में पूछें...",
+        col1Title: "नमूना अनुरोध आज़माएं",
+        col1Badge: "अंग्रेज़ी और हिन्दी",
+        scenariosHeading: "एक उदाहरण चुनें:",
+        scenariosHint: "शुरू करने के लिए चुनें",
+        chatPlaceholder: "नमूना ऑर्डर के बारे में पूछें, जैसे ORD-8492...",
         sendBtn: "भेजें",
-        col2Title: "रीएक्ट रीजनिंग इंजन",
-        col2Subtitle: "सोच • कार्य योजना • अवलोकन • सत्यापन",
+        col2Title: "डेमो कैसे काम करता है",
+        col2Subtitle: "हर जांच और कार्रवाई को होते हुए देखें।",
         stepCounterReady: "तैयार",
         stepCounterCompleted: "पूर्ण",
-        stepModeLabel: "स्टेप-बाय-स्टेप डीबगर सक्रिय",
+        stepModeLabel: "चरण-दर-चरण मोड चालू है",
         nextStepBtn: "अगला चरण",
         runAllBtn: "सभी चलाएं",
-        traceEmptyTitle: "क्वेरी की प्रतीक्षा में",
-        traceEmptyDesc: "बाईं ओर दिए गए परिदृश्यों में से किसी एक को चुनें या ऑर्डर संबंधित प्रश्न पूछें ताकि आप ResolvAI की विचार प्रक्रिया और टूल कॉल देख सकें।",
+        traceEmptyTitle: "शुरू करने के लिए तैयार",
+        traceEmptyDesc: "बाईं ओर कोई उदाहरण चुनें या ऑर्डर आईडी डालें। हर चरण और सुरक्षा जांच का परिणाम देखें।",
         tabDb: "डेमो डेटा",
         tabArch: "आर्किटेक्चर",
         tabEval: "सुरक्षा गार्डरेल्स",
@@ -346,6 +360,13 @@
       document.getElementById('label-mode-step').textContent = dict.modeStep;
       document.getElementById('label-reset-btn').textContent = dict.resetBtn;
       document.getElementById('label-modal-btn').textContent = dict.modalBtn;
+      document.getElementById('demo-intro-eyebrow').textContent = dict.introEyebrow;
+      document.getElementById('demo-intro-title').textContent = dict.introTitle;
+      document.getElementById('demo-intro-copy').textContent = dict.introCopy;
+      document.getElementById('demo-intro-step-1').textContent = dict.introStep1;
+      document.getElementById('demo-intro-step-2').textContent = dict.introStep2;
+      document.getElementById('demo-intro-step-3').textContent = dict.introStep3;
+      document.getElementById('demo-intro-note').textContent = dict.introNote;
 
       // ReAct 5-phase Bar
       document.getElementById('phase-txt-1').textContent = dict.phase1;
@@ -1029,12 +1050,12 @@
             stepNumber: 4,
             phaseNumber: 4,
             phase: 'TOOL_EXEC',
-            title: 'Invoke Razorpay Refund API & Write Audit Ledger',
-            titleHi: 'रेज़रपे रिफंड API और मोंगोडीबी ऑडिट लेज़र लेखन',
-            thought: `Triggering Payment Gateway Refund API and committing transaction record to collection 'audit_ledger'.`,
-            thoughtHi: `पेमेंट गेटवे रिफंड API कॉल किया जा रहा है और 'audit_ledger' में लेनदेन दर्ज किया जा रहा है।`,
+            title: 'Simulate Refund & Update Sample Data',
+            titleHi: 'रिफंड का सिमुलेशन और नमूना डेटा अपडेट',
+            thought: `Recording a simulated refund in the sample database. No payment is sent.`,
+            thoughtHi: `नमूना डेटाबेस में रिफंड दर्ज किया जा रहा है। कोई वास्तविक भुगतान नहीं भेजा जाएगा।`,
             toolCall: {
-              name: 'paymentGateway.refundTransaction',
+              name: 'demo.refundTransaction',
               params: {
                 orderId: targetOrder.orderId,
                 amountINR: targetOrder.amountINR,
@@ -1076,18 +1097,16 @@
             phase: 'SYNTHESIS',
             title: 'Synthesize Safe Customer Resolution',
             titleHi: 'ग्राहक समाधान विवरण तैयार करना',
-            thought: 'All safety invariants satisfied. Providing customer with immediate confirmation and transaction reference.',
-            thoughtHi: 'सभी सुरक्षा नियम संतुष्ट हैं। ग्राहक को तुरंत पुष्टि और लेनदेन संदर्भ संख्या प्रदान की जा रही है।',
-            finalReplyEn: `I have verified your purchase for order **#${targetOrder.orderId}** (${targetOrder.itemName}). Because the item arrived damaged and qualifies under our 7-day guarantee, I have automatically issued an immediate refund of **₹${targetOrder.amountINR.toLocaleString('en-IN')}** to your original payment method.
+            thought: 'Explaining the simulated outcome and sample order update.',
+            thoughtHi: 'सिम्युलेटेड परिणाम और नमूना ऑर्डर में हुए बदलाव को समझाना।',
+            finalReplyEn: `I checked sample order **#${targetOrder.orderId}** (${targetOrder.itemName}). This demo records a simulated refund of **₹${targetOrder.amountINR.toLocaleString('en-IN')}** and marks the sample order as refunded.
 
-• **Transaction ID:** \`${generatedTxId}\`
-• **Settlement ETA:** 24 hours
-• **Status:** Successfully updated in our system. You do not need to ship the damaged unit back.`,
-            finalReplyHi: `मैंने आपके ऑर्डर **#${targetOrder.orderId}** (${targetOrder.itemName}) के रिकॉर्ड्स सत्यापित कर लिए हैं। चूंकि पार्सल क्षतिग्रस्त स्थिति में मिला है और यह हमारी 7-दिवसीय गारंटी नीति के अंतर्गत आता है, मैंने आपके मूल भुगतान खाते में **₹${targetOrder.amountINR.toLocaleString('en-IN')}** का पूर्ण रिफंड जारी कर दिया है।
+• **Demo transaction ID:** \`${generatedTxId}\`
+• **Important:** No money was sent. This is sample data, not a real refund.`,
+            finalReplyHi: `मैंने नमूना ऑर्डर **#${targetOrder.orderId}** (${targetOrder.itemName}) की जांच की। इस डेमो में **₹${targetOrder.amountINR.toLocaleString('en-IN')}** का रिफंड सिम्युलेट किया गया है और नमूना ऑर्डर की स्थिति रिफंडेड की गई है।
 
-• **लेनदेन संदर्भ (TxID):** \`${generatedTxId}\`
-• **पैसे आने की समय सीमा:** 24 घंटे
-• **स्थिति:** मोंगोडीबी में रिफंड दर्ज हो चुका है। आपको क्षतिग्रस्त हेडफ़ोन वापस भेजने की आवश्यकता नहीं है।`,
+• **डेमो लेनदेन आईडी:** \`${generatedTxId}\`
+• **ध्यान दें:** कोई वास्तविक भुगतान नहीं भेजा गया। यह केवल नमूना डेटा है।`,
             orderId: targetOrder.orderId,
             txId: generatedTxId,
             guardrailPassed: true
@@ -1100,12 +1119,12 @@
             stepNumber: 4,
             phaseNumber: 4,
             phase: 'TOOL_EXEC',
-            title: 'Queue Human Escalation Ticket in CRM',
-            titleHi: 'CRM में मानव समीक्षा टिकट जोड़ना',
-            thought: `Routing dispute to Senior Tier-2 Support Queue. Updating order status to 'Escalated_To_Human'.`,
-            thoughtHi: `विवाद को वरिष्ठ सुपरवाइज़र सहायता डेस्क पर भेजा जा रहा है। ऑर्डर स्थिति 'Escalated_To_Human' की गई।`,
+            title: 'Record Sample Escalation',
+            titleHi: 'नमूना एस्केलेशन दर्ज करें',
+            thought: `Recording a simulated escalation in sample data. No support ticket is sent.`,
+            thoughtHi: `नमूना डेटा में सिम्युलेटेड एस्केलेशन दर्ज किया जा रहा है। कोई सहायता टिकट नहीं भेजा जाएगा।`,
             toolCall: {
-              name: 'crm.escalations.createTicket',
+              name: 'demo.escalations.createTicket',
               params: {
                 orderId: targetOrder.orderId,
                 amountINR: targetOrder.amountINR,
@@ -1136,9 +1155,9 @@
               renderTransactions(ticketId);
             },
             observation: {
-              ticketNumber: ticketId,
-              assignedDepartment: 'Tier-2 High Value Resolutions',
-              slaCallbackHours: 2
+              demoCaseId: ticketId,
+              sampleStatus: 'ESCALATED',
+              note: 'No real support ticket or callback is created.'
             }
           });
 
@@ -1148,18 +1167,18 @@
             phase: 'SYNTHESIS',
             title: 'Synthesize Safe Escalation Communication',
             titleHi: 'एस्केलेशन सूचना तैयार करना',
-            thought: 'Explaining safety policy politely and communicating expected callback window.',
-            thoughtHi: 'सुरक्षा नियम समझाते हुए ग्राहक को सहायता डेस्क के संपर्क समय की जानकारी देना।',
-            finalReplyEn: `For order **#${targetOrder.orderId}** (${targetOrder.itemName}), refund requests for high-value items (**₹${targetOrder.amountINR.toLocaleString('en-IN')}**) require mandatory manual inspection by a Senior Support Specialist under our safety guidelines.
+            thought: 'Explaining that the high-value request was logged for demo purposes only.',
+            thoughtHi: 'उच्च-मूल्य अनुरोध केवल डेमो के लिए दर्ज हुआ है, यह बताना।',
+            finalReplyEn: `For sample order **#${targetOrder.orderId}** (${targetOrder.itemName}), refunds above **₹${AUTO_REFUND_LIMIT.toLocaleString('en-IN')}** require review in this demo, so automatic processing was blocked.
 
-• **Escalation Case ID:** \`${ticketId}\`
-• **Action:** Assigned with Priority 1 to our Bengaluru escalations desk.
-• **Callback SLA:** A supervisor will review the case and contact you within 2 hours at \`${targetOrder.email}\`.`,
-            finalReplyHi: `ऑर्डर **#${targetOrder.orderId}** (${targetOrder.itemName}) के लिए, उच्च-मूल्य की वस्तुओं (**₹${targetOrder.amountINR.toLocaleString('en-IN')}**) पर रिफंड के लिए हमारे सुरक्षा नियमों के तहत वरिष्ठ अधिकारी की समीक्षा अनिवार्य है।
+• **Demo case ID:** \`${ticketId}\`
+• **Sample status:** Escalated for review
+• **Important:** No real support ticket or callback was created.`,
+            finalReplyHi: `नमूना ऑर्डर **#${targetOrder.orderId}** (${targetOrder.itemName}) के लिए **₹${AUTO_REFUND_LIMIT.toLocaleString('en-IN')}** से अधिक का रिफंड इस डेमो में समीक्षा के लिए भेजा जाता है, इसलिए स्वचालित प्रक्रिया रोक दी गई।
 
-• **एस्केलेशन केस आईडी:** \`${ticketId}\`
-• **कार्रवाई:** प्राथमिकता-1 के साथ बेंगलुरु सहायता डेस्क को सौंपा गया।
-• **संपर्क समय:** एक वरिष्ठ अधिकारी 2 घंटे के भीतर आपसे \`${targetOrder.email}\` पर संपर्क करेंगे।`,
+• **डेमो केस आईडी:** \`${ticketId}\`
+• **नमूना स्थिति:** समीक्षा के लिए एस्केलेट किया गया
+• **ध्यान दें:** कोई वास्तविक सहायता टिकट या कॉल नहीं बनाया गया।`,
             orderId: targetOrder.orderId,
             txId: ticketId,
             guardrailPassed: false
@@ -1173,12 +1192,12 @@
           stepNumber: 2,
           phaseNumber: 2,
           phase: 'TOOL_PLAN',
-          title: 'Query Logistics Courier Gateway',
-          titleHi: 'कूरियर लॉजिस्टिक्स गेटवे खोज',
-          thought: `Querying courier partner '${targetOrder.carrier}' with tracking reference '${targetOrder.trackingId}'.`,
-          thoughtHi: `कूरियर पार्टनर '${targetOrder.carrier}' से ट्रैकिंग रेफरेंस '${targetOrder.trackingId}' की ताज़ा स्थिति ली जा रही है।`,
+          title: 'Load Sample Tracking Details',
+          titleHi: 'नमूना ट्रैकिंग विवरण देखें',
+          thought: `Loading simulated tracking details for '${targetOrder.trackingId}'. No courier is contacted.`,
+          thoughtHi: `ट्रैकिंग आईडी '${targetOrder.trackingId}' के सिम्युलेटेड विवरण दिखाए जा रहे हैं। कूरियर से संपर्क नहीं किया जाता।`,
           toolCall: {
-            name: 'courierGateway.getTrackingTimeline',
+            name: 'demo.getTrackingTimeline',
             params: {
               carrier: targetOrder.carrier,
               trackingId: targetOrder.trackingId,
@@ -1217,23 +1236,25 @@
           phaseNumber: 5,
           phase: 'SYNTHESIS',
           title: 'Generate Grounded Tracking Update',
-          titleHi: 'लाइव ट्रैकिंग सारांश तैयार करना',
+          titleHi: 'नमूना ट्रैकिंग सारांश तैयार करना',
           thought: 'Formatting clear tracking status with courier link and expected delivery time.',
           thoughtHi: 'स्पष्ट डिलीवरी स्थिति और आगमन समय ग्राहक को प्रस्तुत करना।',
-          finalReplyEn: `Here is the live logistics status for order **#${targetOrder.orderId}** (${targetOrder.itemName}):
+          finalReplyEn: `Here is the sample tracking information for order **#${targetOrder.orderId}** (${targetOrder.itemName}):
 
 • **Status:** In Transit with **${targetOrder.carrier}**
 • **Current Location:** Gurugram Distribution Hub (Departed sorting center)
 • **Destination Address:** ${targetOrder.shippingAddress}
 • **Tracking Number:** \`${targetOrder.trackingId}\`
-• **Expected Delivery:** Tomorrow by 2:00 PM IST.`,
-          finalReplyHi: `ऑर्डर **#${targetOrder.orderId}** (${targetOrder.itemName}) की लाइव ट्रैकिंग स्थिति:
+• **Expected Delivery (sample):** Tomorrow by 2:00 PM IST
+• **Note:** This is sample data; no courier is contacted.`,
+          finalReplyHi: `ऑर्डर **#${targetOrder.orderId}** (${targetOrder.itemName}) की नमूना ट्रैकिंग जानकारी:
 
 • **कूरियर स्थिति:** **${targetOrder.carrier}** के साथ मार्ग में (In Transit)
 • **वर्तमान स्थान:** गुरुग्राम हब (सॉर्टिंग सेंटर से रवाना हो चुका है)
 • **डिलीवरी पता:** ${targetOrder.shippingAddress}
 • **ट्रैकिंग नंबर:** \`${targetOrder.trackingId}\`
-• **अनुमानित आगमन:** कल दोपहर 2:00 बजे तक।`,
+• **अनुमानित आगमन (नमूना):** कल दोपहर 2:00 बजे तक
+• **ध्यान दें:** यह नमूना डेटा है; कूरियर से संपर्क नहीं किया गया।`,
           orderId: targetOrder.orderId,
           txId: targetOrder.trackingId,
           guardrailPassed: true
@@ -1324,20 +1345,20 @@
             stepNumber: 5,
             phaseNumber: 5,
             phase: 'SYNTHESIS',
-            title: 'Confirmation Resolution',
+            title: 'Confirm Sample Address Update',
             titleHi: 'पता सुधार पुष्टि',
-            thought: 'Confirming address update to user.',
+            thought: 'Confirming that the sample order record was updated.',
             thoughtHi: 'ग्राहक को पता सफलतापूर्ण बदलने की पुष्टि देना।',
-            finalReplyEn: `Great news! Because order **#${targetOrder.orderId}** (${targetOrder.itemName}) is still in the 'Processing' packaging stage, I have safely updated your shipping address to:
+            finalReplyEn: `The sample order **#${targetOrder.orderId}** (${targetOrder.itemName}) is still in the 'Processing' stage. In this demo, its shipping address was updated to:
 
 📍 **${newAddress}**
 
-The courier will receive the updated destination when dispatched.`,
-            finalReplyHi: `शुभ समाचार! क्योंकि आपका ऑर्डर **#${targetOrder.orderId}** (${targetOrder.itemName}) अभी पैकेजिंग (Processing) स्टेज में है, मैंने आपका डिलीवरी पता सफलतापूर्ण अपडेट कर दिया है:
+Only the demo record changed. No live order was changed, and the courier was not notified.`,
+            finalReplyHi: `नमूना ऑर्डर **#${targetOrder.orderId}** (${targetOrder.itemName}) अभी 'Processing' स्थिति में है। इस डेमो में इसका डिलीवरी पता अपडेट किया गया:
 
 📍 **${newAddress}**
 
-डिस्पैच के समय कूरियर को यही नया पता दिया जाएगा।`,
+केवल डेमो रिकॉर्ड बदला गया। कोई वास्तविक ऑर्डर नहीं बदला गया और कूरियर को सूचित नहीं किया गया।`,
             orderId: targetOrder.orderId,
             guardrailPassed: true
           });
