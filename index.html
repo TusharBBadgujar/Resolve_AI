@@ -46,6 +46,71 @@
       <div id="mount-reasoning-engine" class="section-mount"></div>
       <div id="mount-demo-console" class="section-mount"></div>
     </div>
+
+    <section id="multi-store-security" class="tenant-demo rounded-2xl border border-slate-800 bg-slate-900 p-4 sm:p-6" aria-labelledby="tenant-demo-title">
+      <div class="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+        <div>
+          <p class="mb-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-cyan-300">Multi-store architecture concept</p>
+          <h2 id="tenant-demo-title" class="text-xl font-bold tracking-tight text-white">One support platform. Separate store sessions.</h2>
+          <p class="mt-2 max-w-3xl text-sm leading-relaxed text-slate-300">Multiple ecommerce businesses can use the same service at the same time. Each signed-in store gets its own session, and requests should only return records belonging to that store.</p>
+        </div>
+        <span class="inline-flex shrink-0 items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1.5 text-xs font-semibold text-emerald-300">
+          <span class="h-2 w-2 rounded-full bg-emerald-400"></span> 3 separate sessions
+        </span>
+      </div>
+
+      <div class="mt-4 rounded-xl border border-amber-500/40 bg-amber-500/10 p-3 text-xs leading-relaxed text-amber-100" role="note">
+        <strong>Important:</strong> This is a visual architecture example with fictional data, not a login or security feature. The current demo API has no authentication or tenant-level data isolation. Do not use real customer data or treat this demo as production-ready.
+      </div>
+
+      <div class="mt-5 grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)]">
+        <div class="rounded-xl border border-slate-800 bg-slate-950/70 p-4">
+          <h3 class="text-sm font-bold text-white">How isolation should work</h3>
+          <ol class="tenant-flow mt-3 space-y-3">
+            <li><span>1</span><p><strong>Sign in</strong><br><span>Verify the store user and create a secure session.</span></p></li>
+            <li><span>2</span><p><strong>Resolve the store identity</strong><br><span>Get the tenant ID from the trusted session—not from a browser-supplied store ID.</span></p></li>
+            <li><span>3</span><p><strong>Scope every request</strong><br><span>Filter reads and writes by that tenant ID; deny access when the record belongs to another store.</span></p></li>
+          </ol>
+          <div class="mt-4 rounded-lg border border-cyan-900/70 bg-cyan-950/30 p-3 font-mono text-[11px] leading-relaxed text-cyan-100">
+            Example server-side filter:<br>
+            <code class="text-cyan-300">findOne({ tenantId: session.tenantId, orderId })</code>
+          </div>
+        </div>
+
+        <div class="rounded-xl border border-slate-800 bg-slate-950/70 p-4">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <h3 class="text-sm font-bold text-white">Concurrent store workspaces</h3>
+            <span class="text-[10px] font-mono uppercase tracking-wide text-slate-400">Fictional preview · no credentials</span>
+          </div>
+          <div class="mt-3 grid gap-2 sm:grid-cols-3" role="group" aria-label="Select a fictional store session to preview">
+            <button type="button" class="tenant-select is-selected" data-tenant-select="northstar" aria-pressed="true">Northstar Goods</button>
+            <button type="button" class="tenant-select" data-tenant-select="fern" aria-pressed="false">Fern &amp; Found</button>
+            <button type="button" class="tenant-select" data-tenant-select="orbit" aria-pressed="false">Orbit Outfitters</button>
+          </div>
+          <div id="tenant-session-preview" class="tenant-preview mt-3 rounded-xl border border-cyan-900/70 bg-slate-900 p-4" aria-live="polite">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <div>
+                <p class="text-[10px] font-semibold uppercase tracking-wider text-emerald-300">Signed-in store session · sample only</p>
+                <h4 id="tenant-store-name" class="mt-1 text-base font-bold text-white">Northstar Goods</h4>
+              </div>
+              <span id="tenant-session-id" class="rounded-md border border-slate-700 bg-slate-950 px-2 py-1 font-mono text-[10px] text-slate-300">tenant: northstar · session A</span>
+            </div>
+            <p class="mt-2 text-xs text-slate-400">Store user: <span id="tenant-user" class="text-slate-200">Alex Morgan · alex@northstar.example</span></p>
+            <div class="mt-3 rounded-lg border border-slate-800 bg-slate-950 p-3">
+              <p class="text-[10px] font-semibold uppercase tracking-wide text-slate-400">Only this store's sample order</p>
+              <div class="mt-2 flex flex-wrap items-center justify-between gap-2 text-xs">
+                <span id="tenant-order" class="font-mono text-cyan-300">NG-1042 · Ceramic pour-over set</span>
+                <span id="tenant-order-status" class="rounded-full bg-emerald-500/10 px-2 py-1 text-[10px] font-semibold text-emerald-300">Processing</span>
+              </div>
+            </div>
+          </div>
+          <p id="tenant-isolation-status" class="mt-3 flex items-start gap-2 text-xs leading-relaxed text-slate-400" role="status">
+            <span aria-hidden="true" class="text-emerald-400">●</span>
+            <span>Switch the preview to see each fictional store's separate session and sample order. In a real system, the server must enforce this boundary on every API request.</span>
+          </p>
+        </div>
+      </div>
+    </section>
   </main>
 
   <!-- Project Info & Architecture Rubric Modal -->
@@ -65,5 +130,6 @@
   <script defer src="Footer/section.js"></script>
   <script defer src="js/sections-bootstrap.js"></script>
   <script defer src="js/app.js"></script>
+  <script defer src="js/multi-tenant-demo.js"></script>
 </body>
 </html>
