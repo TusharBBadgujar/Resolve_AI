@@ -28,6 +28,7 @@ The workflow uses rule-based intent and order-ID detection in browser JavaScript
 - Deterministic refund guardrail: requests up to ₹2,000 can proceed through the autonomous demo path; higher-value requests are escalated.
 - Sample order updates and audit-ledger entries persisted in MongoDB.
 - Demo data, architecture, and guardrails views, plus a control to reset the database to its sample state.
+- An illustrative multi-store section showing how separate ecommerce sessions should be isolated; it does not add authentication or tenant isolation to the API.
 - Optional text-to-speech playback through the browser's Web Speech API.
 
 ## How it works
@@ -129,6 +130,8 @@ The Express server provides these local endpoints:
 | `POST` | `/api/transactions` | Adds an audit-ledger transaction. |
 | `POST` | `/api/reset` | Replaces order and ledger data with the initial sample records. |
 
+These endpoints are currently unauthenticated and operate on shared demo data. The multi-store section is an architecture illustration only; it does not make the API safe for multiple businesses or real customer information.
+
 ## Configuration
 
 The app loads optional variables from a local `.env` file:
@@ -154,7 +157,7 @@ These are proposed improvements, not features currently implemented:
 - Add automated tests for the intent rules, safety guardrails, and API routes.
 - Explore an optional LLM-backed intent/response layer while retaining deterministic policy checks before any action.
 - Connect to sandbox payment and courier APIs before considering any production integrations.
-- Add authentication and role-based access if the demo is expanded beyond local sample data.
+- Before supporting multiple businesses, add real authentication and secure sessions, derive the tenant ID on the server, scope every database read/write (including reset and audit operations) to that tenant, and test that cross-tenant access is denied. The current API is unauthenticated and uses shared collections, so it is not production-ready for real customer data.
 
 ## Hackathon demo
 
