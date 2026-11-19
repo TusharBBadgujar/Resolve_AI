@@ -4,7 +4,8 @@
   "private": true,
   "description": "ResolvAI support-agent demo with MongoDB persistence",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "test": "node --test"
   },
   "dependencies": {
     "dotenv": "^16.4.7",
