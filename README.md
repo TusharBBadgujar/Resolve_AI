@@ -15,6 +15,7 @@ The workflow uses rule-based intent and order-ID detection in browser JavaScript
 - [Setup and run](#setup-and-run)
 - [Using the demo](#using-the-demo)
 - [API](#api)
+- [Authentication and security](#authentication-and-security)
 - [Configuration](#configuration)
 - [Limitations](#limitations)
 - [Possible next steps](#possible-next-steps)
@@ -131,6 +132,14 @@ The Express server provides these local endpoints:
 | `POST` | `/api/reset` | Replaces order and ledger data with the initial sample records. |
 
 These endpoints are currently unauthenticated and operate on shared demo data. The multi-store section is an architecture illustration only; it does not make the API safe for multiple businesses or real customer information.
+
+## Authentication and security
+
+Real multi-user or multi-store login is intentionally out of scope for this hackathon demo. The project demonstrates a simulated customer-support workflow using sample data; it does not manage real users, stores, or production business records. Adding a login screen alone would not protect data and could falsely suggest that the application is secure.
+
+There is no authentication or authorization in the current API. Authentication establishes a user's identity; authorization determines which data and actions that identity can access. The API has no identity provider, login/session flow, user roles, or server-enforced tenant isolation. Its endpoints operate on shared demo collections, including the reset endpoint. The multi-store page only illustrates a possible design and does not create real sessions or enforce isolation. Do not expose this demo to untrusted users or use real customer, order, or payment data.
+
+Before production use, implement and test a complete security design: use a trusted identity provider and secure session handling; enforce user permissions and derive tenant scope from the verified server-side identity on every request; protect state-changing requests and secrets; use HTTPS, input validation, and appropriate rate limits; and maintain access-controlled audit records. These are future requirements, not protections currently provided by this project.
 
 ## Configuration
 

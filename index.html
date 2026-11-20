@@ -63,6 +63,17 @@
         <strong>Important:</strong> This is a visual architecture example with fictional data, not a login or security feature. The current demo API has no authentication or tenant-level data isolation. Do not use real customer data or treat this demo as production-ready.
       </div>
 
+      <div class="mt-4 grid gap-4 md:grid-cols-2">
+        <div class="rounded-xl border border-slate-800 bg-slate-950/70 p-4">
+          <h3 class="text-sm font-bold text-white">Why real multiple logins are not included</h3>
+          <p class="mt-2 text-xs leading-relaxed text-slate-300">This hackathon prototype focuses on demonstrating the support-agent workflow with fictional sample orders, not managing real stores or user accounts. A login screen without a complete server-side identity, session, authorization, and tenant-isolation system would give a misleading sense of security. The store switcher below is only a visual illustration; it does not sign anyone in.</p>
+        </div>
+        <div class="rounded-xl border border-slate-800 bg-slate-950/70 p-4">
+          <h3 class="text-sm font-bold text-white">Authentication and security boundary</h3>
+          <p class="mt-2 text-xs leading-relaxed text-slate-300">Authentication verifies who a user is; authorization decides which store and actions that user may access. Neither is implemented here: the API is unauthenticated, uses shared demo records, and does not enforce tenant access. A production version needs secure identity and session management, server-checked roles and tenant scope on every endpoint, protected secrets and transport, and security testing before handling real data.</p>
+        </div>
+      </div>
+
       <div class="mt-5 grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)]">
         <div class="rounded-xl border border-slate-800 bg-slate-950/70 p-4">
           <h3 class="text-sm font-bold text-white">How isolation should work</h3>
