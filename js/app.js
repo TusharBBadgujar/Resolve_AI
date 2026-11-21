@@ -476,65 +476,138 @@
     }
 
     // Text To Speech (TTS) Helper
+    function resetTtsButton(btnElement) {
+      if (!btnElement) return;
+      btnElement.classList.remove('bg-rose-600', 'text-white');
+      btnElement.classList.add('bg-slate-800', 'text-slate-300');
+      btnElement.innerHTML = `<span>🔊</span> <span>${currentLanguage === 'hi' ? i18n.hi.listenBtn : i18n.en.listenBtn}</span>`;
+    }
+
+    function splitSpeechText(text, maxLength = 160) {
+      const normalized = text.replace(/\s+/g, ' ').trim();
+      const sentences = normalized.match(/[^.!?।]+[.!?।]+|[^.!?।]+$/g) || [normalized];
+      const chunks = [];
+
+      for (const sentence of sentences) {
+        const words = sentence.trim().split(' ');
+        let chunk = '';
+        for (const word of words) {
+          if (chunk && `${chunk} ${word}`.length > maxLength) {
+            chunks.push(chunk.trim());
+            chunk = word;
+          } else {
+            chunk = chunk ? `${chunk} ${word}` : word;
+          }
+        }
+        if (chunk) chunks.push(chunk.trim());
+      }
+
+      return chunks.length ? chunks : [normalized];
+    }
+
     function speakText(text, btnElement) {
       if (!('speechSynthesis' in window)) {
         showToast(currentLanguage === 'hi' ? 'आपका ब्राउज़र स्पीच सिंथेसिस सपोर्ट नहीं करता' : 'Web Speech API is not supported in this browser');
         return;
       }
 
-      if (window.speechSynthesis.speaking) {
-        window.speechSynthesis.cancel();
-        if (activeUtterance && activeUtterance.btnElement) {
-          activeUtterance.btnElement.classList.remove('bg-rose-600', 'text-white');
-          activeUtterance.btnElement.classList.add('bg-slate-800', 'text-slate-300');
-          activeUtterance.btnElement.innerHTML = `<span>🔊</span> <span>${currentLanguage === 'hi' ? i18n.hi.listenBtn : i18n.en.listenBtn}</span>`;
-        }
-        if (activeUtterance && activeUtterance.btnElement === btnElement) {
-          activeUtterance = null;
-          return;
-        }
+      const stoppingCurrentButton = activeUtterance && activeUtterance.btnElement === btnElement;
+      window.speechSynthesis.cancel();
+      if (activeUtterance) {
+        clearTimeout(activeUtterance.startTimer);
+        resetTtsButton(activeUtterance.btnElement);
+      }
+      if (stoppingCurrentButton) {
+        activeUtterance = null;
+        return;
       }
 
-      // Clean markdown tags for natural speech
+      // Chunking lets the browser begin immediately instead of waiting for a whole
+      // multilingual response to be queued before the first word is spoken.
       const cleanText = text.replace(/[*_#`\[\]]/g, '').replace(/ORD-\d+/g, (m) => `Order ${m}`);
-      const utterance = new SpeechSynthesisUtterance(cleanText);
-      utterance.rate = 0.95;
-      utterance.pitch = 1.0;
-
-      // Select matching voice
+      const chunks = splitSpeechText(cleanText, currentLanguage === 'hi' ? 140 : 220);
       const voices = window.speechSynthesis.getVoices();
+      let selectedVoice = null;
+
       if (currentLanguage === 'hi') {
-        utterance.lang = 'hi-IN';
-        const hiVoice = voices.find(v => v.lang.includes('hi') || v.name.includes('Hindi'));
-        if (hiVoice) utterance.voice = hiVoice;
+        selectedVoice = voices.find(v => /^hi(-|_)/i.test(v.lang))
+          || voices.find(v => /hindi/i.test(v.name));
       } else {
-        utterance.lang = 'en-IN';
-        const enVoice = voices.find(v => v.lang.includes('en-IN') || v.lang.includes('en-GB') || v.lang.includes('en-US'));
-        if (enVoice) utterance.voice = enVoice;
+        selectedVoice = voices.find(v => /^en-IN/i.test(v.lang))
+          || voices.find(v => /^en-GB/i.test(v.lang))
+          || voices.find(v => /^en-US/i.test(v.lang));
       }
 
-      utterance.btnElement = btnElement;
-      activeUtterance = utterance;
+      const playback = {
+        btnElement,
+        index: 0,
+        chunks,
+        voice: selectedVoice,
+        startTimer: null
+      };
+      activeUtterance = playback;
 
       btnElement.classList.remove('bg-slate-800', 'text-slate-300');
       btnElement.classList.add('bg-rose-600', 'text-white');
       btnElement.innerHTML = `<span>⏹️</span> <span>${currentLanguage === 'hi' ? i18n.hi.stopAudioBtn : i18n.en.stopAudioBtn}</span>`;
 
-      utterance.onend = () => {
-        btnElement.classList.remove('bg-rose-600', 'text-white');
-        btnElement.classList.add('bg-slate-800', 'text-slate-300');
-        btnElement.innerHTML = `<span>🔊</span> <span>${currentLanguage === 'hi' ? i18n.hi.listenBtn : i18n.en.listenBtn}</span>`;
+      const finishPlayback = () => {
+        if (activeUtterance !== playback) return;
+        clearTimeout(playback.startTimer);
+        resetTtsButton(btnElement);
         activeUtterance = null;
       };
 
-      utterance.onerror = () => {
-        btnElement.classList.remove('bg-rose-600', 'text-white');
-        btnElement.classList.add('bg-slate-800', 'text-slate-300');
-        btnElement.innerHTML = `<span>🔊</span> <span>${currentLanguage === 'hi' ? i18n.hi.listenBtn : i18n.en.listenBtn}</span>`;
-        activeUtterance = null;
+      const speakNextChunk = () => {
+        if (activeUtterance !== playback) return;
+
+        if (playback.index >= playback.chunks.length) {
+          finishPlayback();
+          return;
+        }
+
+        const utterance = new SpeechSynthesisUtterance(playback.chunks[playback.index]);
+        utterance.lang = currentLanguage === 'hi' ? 'hi-IN' : 'en-IN';
+        utterance.rate = currentLanguage === 'hi' ? 1.08 : 0.98;
+        utterance.pitch = 1.0;
+        if (playback.voice) utterance.voice = playback.voice;
+
+        let started = false;
+        utterance.onstart = () => {
+          started = true;
+          clearTimeout(playback.startTimer);
+        };
+        utterance.onend = () => {
+          clearTimeout(playback.startTimer);
+          if (activeUtterance !== playback) return;
+          playback.index += 1;
+          speakNextChunk();
+        };
+        utterance.onerror = (event) => {
+          clearTimeout(playback.startTimer);
+          if (activeUtterance !== playback) return;
+          finishPlayback();
+          if (event.error !== 'canceled' && event.error !== 'interrupted') {
+            showToast(currentLanguage === 'hi'
+              ? 'हिन्दी आवाज़ उपलब्ध नहीं है। Windows में हिन्दी भाषा/वॉइस सेटअप करें।'
+              : 'Speech playback is unavailable for this browser or voice.');
+          }
+        };
+
+        playback.startTimer = setTimeout(() => {
+          if (!started && activeUtterance === playback) {
+            finishPlayback();
+            window.speechSynthesis.cancel();
+            showToast(currentLanguage === 'hi'
+              ? 'हिन्दी आवाज़ लोड नहीं हुई। कृपया Windows में हिन्दी वॉइस जोड़ें।'
+              : 'The browser voice did not start in time.');
+          }
+        }, currentLanguage === 'hi' ? 2500 : 3000);
+
+        window.speechSynthesis.speak(utterance);
       };
 
-      window.speechSynthesis.speak(utterance);
+      setTimeout(speakNextChunk, 20);
     }
 
     // Clipboard copy helper
